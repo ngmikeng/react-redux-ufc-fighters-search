@@ -3,7 +3,7 @@ import { FILTER_TYPES } from '../actions/types';
 
 const initialState = {
   inputText: '',
-  filterBy: FILTER_TYPES[0].type
+  filterType: FILTER_TYPES[0].type
 };
 
 const searchReducer = (state = initialState, action) => {
@@ -16,7 +16,7 @@ const searchReducer = (state = initialState, action) => {
     case CHANGE_SEARCH_FILTER:
       return {
         ...state,
-        filterBy: action.payload
+        filterType: action.payload
       };
     default:
       return state;

@@ -1,4 +1,4 @@
-import { FETCH_FIGHTERS_DATA, CHANGE_SEARCH_INPUT } from './types';
+import { FETCH_FIGHTERS_DATA, CHANGE_SEARCH_INPUT, CHANGE_SEARCH_FILTER } from './types';
 import fightersData from '../data/ufc-fighters.json';
 
 // export const fetchFightersData = () => (dispatch) => {
@@ -22,5 +22,13 @@ export const changeSearchInput = (text) => {
   return {
     type: CHANGE_SEARCH_INPUT,
     payload: text
+  };
+}
+
+export const changeSearchFilter = (type) => {
+  console.log('change filter');
+  return {
+    type: CHANGE_SEARCH_FILTER,
+    payload: type
   };
 }

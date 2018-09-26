@@ -16,7 +16,7 @@ class FighterListContainer extends Component {
   }
 }
 
-const filterListData = (listData, searchInputText) => {
+const filterByInputText = (listData, searchInputText) => {
   if (!searchInputText) {
     return listData;
   } else {
@@ -29,10 +29,40 @@ const filterListData = (listData, searchInputText) => {
       return false;
     });
   }
+}
+
+const filterByWeightClass = (listData, weightClass) => {
+  if (weightClass) {
+    return listData.filter(fighter => {
+      if (fighter.weight_class) {
+        return fighter.weight_class.toLowerCase().indexOf(weightClass.toLowerCase()) > -1 ;
+      }
+      return false;
+    });
+  }
+  return listData;
+}
+
+const filterByType = (listData, type) => {
+  if (type === 'all') {
+    return listData;
+  } else if (type === 'champ') {
+    return listData.filter(fighter => {
+      return fighter.title_holder;
+    });
+  } else {
+    return filterByWeightClass(listData, type);
+  }
+};
+
+const handleFilterListData = (listData, searchInputText, filterType) => {
+  let data = filterByType(listData, filterType);
+  data = filterByInputText(data, searchInputText);
+  return data;
 };
 
 const mapStateToProps = (state) => ({
-  listData: filterListData(state.fighters.listFighters, state.search.inputText)
+  listData: handleFilterListData(state.fighters.listFighters, state.search.inputText, state.search.filterType)
 });
 
 const mapDispatchToProps = (dispatch) => ({
