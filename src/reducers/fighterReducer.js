@@ -1,7 +1,8 @@
 import { FETCH_FIGHTERS_DATA } from '../actions/types';
 
 const initialState = {
-  listFighters: []
+  listFighters: [],
+  searchInputText: ''
 };
 
 const fighterReducer = (state = initialState, action) => {
