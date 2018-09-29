@@ -1,0 +1,9 @@
+
+.SearchFilter {
+  margin: 0 10px 10px 10px;
+}
+
+.SearchFilter select {
+  padding: 5px;
+  width: 100%;
+}

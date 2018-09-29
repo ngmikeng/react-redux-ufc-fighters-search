@@ -1,6 +1,8 @@
 export const FETCH_FIGHTERS_DATA = 'FETCH_FIGHTERS_DATA';
 export const CHANGE_SEARCH_INPUT = 'CHANGE_SEARCH_INPUT';
 export const CHANGE_SEARCH_FILTER = 'CHANGE_SEARCH_FILTER';
+export const VIEW_FIGHTER_DETAIL = 'VIEW_FIGHTER_DETAIL';
+export const CLOSE_FIGHTER_DETAIL = 'CLOSE_FIGHTER_DETAIL';
 
 export const FILTER_TYPES = [
   { type: 'all', label: 'All' },

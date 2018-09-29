@@ -1,4 +1,10 @@
-import { FETCH_FIGHTERS_DATA, CHANGE_SEARCH_INPUT, CHANGE_SEARCH_FILTER } from './types';
+import {
+  FETCH_FIGHTERS_DATA,
+  CHANGE_SEARCH_INPUT,
+  CHANGE_SEARCH_FILTER,
+  VIEW_FIGHTER_DETAIL,
+  CLOSE_FIGHTER_DETAIL
+} from './types';
 import fightersData from '../data/ufc-fighters.json';
 
 // export const fetchFightersData = () => (dispatch) => {
@@ -30,5 +36,21 @@ export const changeSearchFilter = (type) => {
   return {
     type: CHANGE_SEARCH_FILTER,
     payload: type
+  };
+}
+
+export const viewFighterDetail = (fighter) => {
+  console.log('view detail');
+  return {
+    type: VIEW_FIGHTER_DETAIL,
+    payload: fighter
+  };
+}
+
+export const closeFighterDetail = () => {
+  console.log('close detail');
+  return {
+    type: CLOSE_FIGHTER_DETAIL,
+    payload: null
   };
 }

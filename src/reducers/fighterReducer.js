@@ -1,8 +1,9 @@
-import { FETCH_FIGHTERS_DATA } from '../actions/types';
+import { FETCH_FIGHTERS_DATA, VIEW_FIGHTER_DETAIL, CLOSE_FIGHTER_DETAIL } from '../actions/types';
 
 const initialState = {
   listFighters: [],
-  searchInputText: ''
+  fighterDetail: {},
+  showDetail: false
 };
 
 const fighterReducer = (state = initialState, action) => {
@@ -11,6 +12,18 @@ const fighterReducer = (state = initialState, action) => {
       return {
         ...state,
         listFighters: action.payload
+      };
+    case VIEW_FIGHTER_DETAIL:
+      return {
+        ...state,
+        fighterDetail: action.payload,
+        showDetail: true
+      };
+    case CLOSE_FIGHTER_DETAIL:
+      return {
+        ...state,
+        fighterDetail: {},
+        showDetail: false
       };
     default:
       return state;

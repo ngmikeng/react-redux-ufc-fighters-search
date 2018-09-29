@@ -5,7 +5,7 @@ import './SearchInput.css';
 const SearchInput = ({ onChange }) => {
   return (
     <div className="SearchInput">
-      <input type="text" className="SearchInput-text" onChange={onChange} />
+      <input type="text" className="SearchInput-text" placeholder="Enter a fighter name" onChange={onChange} />
     </div>
   );
 }
