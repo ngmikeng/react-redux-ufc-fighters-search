@@ -3,6 +3,7 @@ export const CHANGE_SEARCH_INPUT = 'CHANGE_SEARCH_INPUT';
 export const CHANGE_SEARCH_FILTER = 'CHANGE_SEARCH_FILTER';
 export const VIEW_FIGHTER_DETAIL = 'VIEW_FIGHTER_DETAIL';
 export const CLOSE_FIGHTER_DETAIL = 'CLOSE_FIGHTER_DETAIL';
+export const LOAD_MORE_FIGHTERS = 'LOAD_MORE_FIGHTERS';
 
 export const FILTER_TYPES = [
   { type: 'all', label: 'All' },

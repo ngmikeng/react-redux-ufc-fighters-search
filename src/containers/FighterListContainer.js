@@ -2,13 +2,37 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
 import PropTypes from 'prop-types';
-import { fetchFightersData, viewFighterDetail, closeFighterDetail } from '../actions';
+import { fetchFightersData, viewFighterDetail, closeFighterDetail, loadMoreFighters } from '../actions';
 import FighterList from '../components/FighterList';
 import FighterDetail from '../components/FighterDetail';
 
+let currentCursor = 0;
+const LIMIT_ITEM = 10;
+
 class FighterListContainer extends Component {
-  componentWillMount() {
-    this.props.fetchFightersData();
+  componentDidMount() {
+    let props = this.props;
+    props.fetchFightersData();
+
+    window.addEventListener('scroll', (event) => {
+      const docElement = event.target.documentElement;
+      if (docElement && docElement.scrollTop + docElement.clientHeight >= docElement.scrollHeight) {
+        props.loadMoreFighters(currentCursor, LIMIT_ITEM);
+      }
+    });
+  }
+
+  componentDidUpdate() {
+    let props = this.props;
+    if (props.listData.length > 0) {
+      currentCursor = props.listData.length;
+    }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', (e) => {
+      console.log('removed scroll event');
+    });
   }
 
   render() {
@@ -82,15 +106,20 @@ const filterByType = (listData, type) => {
   }
 };
 
-const handleFilterListData = (listData, searchInputText, filterType) => {
-  let data = filterByType(listData, filterType);
-  data = filterByInputText(data, searchInputText);
+const handleLoadListData = (listData, searchInputText, filterType, cursor, limit = 10) => {
+  let dataByType = filterByType(listData, filterType);
+  let dataFiltered = filterByInputText(dataByType, searchInputText);
+  let data = dataFiltered.slice(0, cursor + limit || 10);
+  if (cursor >= data.length) {
+    const nextItems = dataFiltered.slice(cursor, cursor + limit);
+    data = data.concat(nextItems);
+  }
 
-  return data.slice(0, 10);
+  return data;
 };
 
 const mapStateToProps = (state) => ({
-  listData: handleFilterListData(state.fighters.listFighters, state.search.inputText, state.search.filterType),
+  listData: handleLoadListData(state.fighters.listFighters, state.search.inputText, state.search.filterType, state.fighters.cursor, state.fighters.limit),
   showDetail: state.fighters.showDetail,
   fighterDetail: state.fighters.fighterDetail
 });
@@ -98,7 +127,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   fetchFightersData: () => dispatch(fetchFightersData()),
   onShowFighter: (fighter) => dispatch(viewFighterDetail(fighter)),
-  closeFighterDetail: () => dispatch(closeFighterDetail())
+  closeFighterDetail: () => dispatch(closeFighterDetail()),
+  loadMoreFighters: (cursor, limit) => dispatch(loadMoreFighters(cursor, limit))
 });
 
 FighterListContainer.propTypes = {

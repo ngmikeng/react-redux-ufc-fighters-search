@@ -3,7 +3,8 @@ import {
   CHANGE_SEARCH_INPUT,
   CHANGE_SEARCH_FILTER,
   VIEW_FIGHTER_DETAIL,
-  CLOSE_FIGHTER_DETAIL
+  CLOSE_FIGHTER_DETAIL,
+  LOAD_MORE_FIGHTERS
 } from './types';
 import fightersData from '../data/ufc-fighters.json';
 
@@ -52,5 +53,15 @@ export const closeFighterDetail = () => {
   return {
     type: CLOSE_FIGHTER_DETAIL,
     payload: null
+  };
+}
+
+export const loadMoreFighters = (cursor, limit) => {
+  console.log('load more');
+  return {
+    type: LOAD_MORE_FIGHTERS,
+    payload: {
+      cursor, limit
+    }
   };
 }
